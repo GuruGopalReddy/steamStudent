@@ -1,0 +1,182 @@
+{
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "zproject1",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.13.1",
+      "toolsId": "8f96bf84-f14a-405c-886a-f7cad93d0cae"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/sap/opu/odata4/sap/zstud_binding1/srvd/sap/zservice_stud/0001/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "annotation"
+          ],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      },
+      "annotation": {
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotation.xml",
+        "settings": {
+          "localUri": "annotations/annotation.xml"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "zstud_app-Display": {
+          "semanticObject": "zstud_app",
+          "action": "Display",
+          "title": "{{flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.120.9",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ushell": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "zproject1.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "zstudent_cdsList",
+          "target": "zstudent_cdsList"
+        },
+        {
+          "pattern": "zstudent_cds({key}):?query:",
+          "name": "zstudent_cdsObjectPage",
+          "target": "zstudent_cdsObjectPage"
+        },
+        {
+          "pattern": "zstudent_cds({key})/_Attachments({key2}):?query:",
+          "name": "zstudent_cds__AttachmentsObjectPage",
+          "target": "zstudent_cds__AttachmentsObjectPage"
+        }
+      ],
+      "targets": {
+        "zstudent_cdsList": {
+          "type": "Component",
+          "id": "zstudent_cdsList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/zstudent_cds",
+              "variantManagement": "Page",
+              "navigation": {
+                "zstudent_cds": {
+                  "detail": {
+                    "route": "zstudent_cdsObjectPage"
+                  }
+                }
+              },
+              "initialLoad": "Enabled"
+            }
+          }
+        },
+        "zstudent_cdsObjectPage": {
+          "type": "Component",
+          "id": "zstudent_cdsObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/zstudent_cds",
+              "navigation": {
+                "_Attachments": {
+                  "detail": {
+                    "route": "zstudent_cds__AttachmentsObjectPage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "zstudent_cds__AttachmentsObjectPage": {
+          "type": "Component",
+          "id": "zstudent_cds__AttachmentsObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "contextPath": "/zstudent_cds/_Attachments",
+              "navigation": {}
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
+}
